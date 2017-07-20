@@ -7,7 +7,6 @@ var $nowDate = new Date(),
 
 //绑定点击事件
 function bindEvent(e){
-    console.log('event');
     var pre = document.getElementsByClassName('pre')[0];
     var next = document.getElementsByClassName('next')[0];
 
@@ -19,13 +18,14 @@ function bindEvent(e){
 
 //点击事件对应日期
 function setDate(event){
-    console.log('click');
     var prespan = document.getElementsByClassName('pre')[0].getElementsByTagName('span')[0];
     var nextspan = document.getElementsByClassName('next')[0].getElementsByTagName('span')[0];
     var yearspan = document.getElementsByClassName('now')[0].getElementsByTagName('span')[0];
+    var nowspan = document.getElementsByClassName('now')[0].getElementsByTagName('span')[1];
     var preValue = prespan.innerText;
     var nextValue = nextspan.innerText;
     var yearValue = yearspan.innerText;
+    var nowValue = nowspan.innerText;
     
     calender.innerHTML = '';
     var turnDate = new Date();
@@ -34,33 +34,32 @@ function setDate(event){
     if(event.target.className == 'next'){
         var month = parseInt(nextValue);
         var year = parseInt(yearValue);
-        console.log()
         obj.month = month;
-        if(nextValue == 1){
+        if(nowValue == 12){
             obj.month = 1;
             obj.year = year + 1;
             addDate(obj);
-            nextspan.innerHTML = 2;
+            // nextspan.innerHTML = 2;
         }else{
             obj.month = month;
             obj.year = year;
             addDate(obj);
-            nextspan.innerHTML = month + 1;
+            // nextspan.innerHTML = month + 1;
         }
     } else {
         var month = parseInt(preValue);
         var year = parseInt(yearValue);
         obj.month = month;
-        if(preValue == 12){
+        if(nowValue == 1){
             obj.month = 12;
             obj.year = year - 1;
             addDate(obj);
-            prespan.innerHTML = 11;
+            // prespan.innerHTML = 11;
         }else{
             obj.month = month;
             obj.year = year;
             addDate(obj);
-            prespan.innerHTML = month - 1;
+            // prespan.innerHTML = month - 1;
         }
     }
 }
