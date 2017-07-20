@@ -5,6 +5,66 @@ var $nowDate = new Date(),
     $nowMonth = $nowDate.getMonth() + 1,
     $nowDay = $nowDate.getDate();
 
+//绑定点击事件
+function bindEvent(e){
+    console.log('event');
+    var pre = document.getElementsByClassName('pre')[0];
+    var next = document.getElementsByClassName('next')[0];
+
+    // pre.addEventListener('click', setDate);
+    // next.addEventListener('click', setDate);
+    pre.onclick = setDate;
+    next.onclick = setDate;
+}
+
+//点击事件对应日期
+function setDate(event){
+    console.log('click');
+    var prespan = document.getElementsByClassName('pre')[0].getElementsByTagName('span')[0];
+    var nextspan = document.getElementsByClassName('next')[0].getElementsByTagName('span')[0];
+    var yearspan = document.getElementsByClassName('now')[0].getElementsByTagName('span')[0];
+    var preValue = prespan.innerText;
+    var nextValue = nextspan.innerText;
+    var yearValue = yearspan.innerText;
+    
+    calender.innerHTML = '';
+    var turnDate = new Date();
+    var obj = {};
+    obj.dateObj = turnDate;
+    if(event.target.className == 'next'){
+        var month = parseInt(nextValue);
+        var year = parseInt(yearValue);
+        console.log()
+        obj.month = month;
+        if(nextValue == 1){
+            obj.month = 1;
+            obj.year = year + 1;
+            addDate(obj);
+            nextspan.innerHTML = 2;
+        }else{
+            obj.month = month;
+            obj.year = year;
+            addDate(obj);
+            nextspan.innerHTML = month + 1;
+        }
+    } else {
+        var month = parseInt(preValue);
+        var year = parseInt(yearValue);
+        obj.month = month;
+        if(preValue == 12){
+            obj.month = 12;
+            obj.year = year - 1;
+            addDate(obj);
+            prespan.innerHTML = 11;
+        }else{
+            obj.month = month;
+            obj.year = year;
+            addDate(obj);
+            prespan.innerHTML = month - 1;
+        }
+    }
+}
+
 //添加对应日期的函数
 function createDay (li, index, dayNum, nowMonth) {
     for(var i = 0; i < dayNum; i++){
@@ -126,7 +186,7 @@ function addDate (nowDate) {
             break;
     }
 
-    
+    bindEvent();
 }
     
 
